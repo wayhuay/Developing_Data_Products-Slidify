@@ -1,0 +1,55 @@
+---
+title       : Developing Data Products
+subtitle    : Course Project (Slidify) Pitch Presentation
+author      : Wee Way Huay
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Overview
+The prediction is for Miles per Gallon (MPG) based on the input of Gross Horsepower, No. of Cylinders and Weight entered by the users.
+
+The ShinyApp has been deployed. Click <a href="https://wayhuay.shinyapps.io/Developing_Data_Products">here</a> to launch the App.
+
+--- .class #id 
+
+## Dataset
+mtcars dataset is be used in the Miles per Gallon (MPG) prediction.
+```{r}
+data(mtcars)
+head(mtcars, 5)
+```
+
+<h2>Source</h2>
+Henderson and Velleman (1981), Building multiple regression models interactively. Biometrics, 37, 391–411.
+
+--- .class #id 
+
+## Model
+Linear model is used in this course project to predict the fuel efficiency of Miles per Gallon (MPG).
+```{r}
+Model <- lm(mpg ~ hp + cyl + wt, data=mtcars)
+
+mpg <- function(hp, cyl, wt) {
+  Model$coefficients[1] + Model$coefficients[2] * hp + 
+    Model$coefficients[3] * cyl + Model$coefficients[4] * wt
+}
+```
+
+--- .class #id 
+
+## Graph Plots
+```{r, echo=TRUE}
+par(mfrow = c(2, 3))
+plot(mtcars$hp, mtcars$mpg, main="MPG by Horsepower", xlab = "Horsepower"
+     , ylab = "Miles Per Gallon (MPG)")
+plot(mtcars$cyl, mtcars$mpg, main="MPG by Cylinders", xlab = "No. of Cylinder"
+     , ylab = "Miles Per Gallon (MPG)")
+plot(mtcars$wt, mtcars$mpg, main="MPG by Weight", xlab = "Weight"
+     , ylab = "Miles Per Gallon (MPG)")
+```
